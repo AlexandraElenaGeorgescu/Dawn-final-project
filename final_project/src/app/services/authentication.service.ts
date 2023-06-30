@@ -31,4 +31,12 @@ export class AuthenticationService {
     return this.http.post(`${this.apiUrl}/register`, JSON.stringify(user), this.httpOptions);
   }
 
+  logout(): void {
+    // remove user token from storage to log user out
+    localStorage.removeItem('authToken');
+    sessionStorage.removeItem('authToken');
+    localStorage.setItem('rememberMe', 'false');
+    this.router.navigateByUrl('/login');
+  }
+
 }

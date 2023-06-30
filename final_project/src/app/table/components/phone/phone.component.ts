@@ -23,7 +23,7 @@ export class PhoneComponent implements OnInit {
 
   private createForm(): void {
     this.phoneForm = this.fb.group({
-      brand: [this.phone?.brand, [Validators.required], capitalLetterValidator()],
+      brand: [this.phone?.brand, [Validators.required],],
       model: [this.phone?.model, [Validators.required]],
       storage: [this.phone?.storage, [Validators.required, Validators.min(1)]],
       price: [this.phone?.price, [Validators.required, Validators.min(1)]],
@@ -49,13 +49,7 @@ export class PhoneComponent implements OnInit {
       price: this.phoneForm.value.price,
       id: this.phoneForm.value.id
     };
-    const updatedPhone: Phone = {
-      id: this.phone.id,
-      brand: this.phoneForm.value.brand,
-      model: this.phoneForm.value.model,
-      storage: this.phoneForm.value.storage,
-      price: this.phoneForm.value.price,
-    };
+
   }
 
 }

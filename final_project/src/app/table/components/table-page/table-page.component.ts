@@ -5,6 +5,7 @@ import { PhoneService } from 'src/app/services/phone.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { PhoneComponent } from '../phone/phone.component';
 import { EntryDetailsModalComponent } from '../entry-details-modal/entry-details-modal.component';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-table-page',
@@ -14,11 +15,10 @@ import { EntryDetailsModalComponent } from '../entry-details-modal/entry-details
 export class TablePageComponent implements OnInit {
   
   phones$!: Observable<Phone[]>;
-  @Output() phones! : Phone[];
   searchQuery: string = '';
 
 
-  constructor(private phoneService: PhoneService, private modal: NzModalService, ) {}
+  constructor(private phoneService: PhoneService, private modal: NzModalService, private authService: AuthenticationService) {}
 
   ngOnInit(): void {
     this.loadPhones();
@@ -86,7 +86,8 @@ export class TablePageComponent implements OnInit {
   }
   currentPage: number = 1;
   pageSize: number = 8;
-  
+  @Output() phones! : Phone[];
+
   getPhones(): void {
     this.phoneService.getPhones().subscribe((phones) => {
       this.phones = phones;
@@ -157,6 +158,10 @@ export class TablePageComponent implements OnInit {
         phone: phone
       }
     });
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
   
 }

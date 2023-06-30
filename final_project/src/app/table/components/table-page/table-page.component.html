@@ -4,6 +4,8 @@
 <button nz-button nzType="primary" nzSize="large" (click)="sortPhones('model')">Model</button>
 <button nz-button nzType="primary" nzSize="large" (click)="sortPhones('storage')">Storage (GB)</button>
 <button nz-button nzType="primary" nzSize="large" (click)="sortPhones('price')">Price ($)</button>
+<button nz-button nzType="primary" nzSize="large" nzShape="circle" (click)="logout()">Logout</button>
+
 <div class="table-container">
 <ng-container *ngIf="phones$ | async as phones">
   <nz-table #table [nzData]="phones" nzBordered 
