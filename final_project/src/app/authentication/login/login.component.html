@@ -1,4 +1,5 @@
-<h2>Login</h2>
+<div class="Login">
+<div class="Login__background-image"></div>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div>
     <label for="email">Email:</label>
@@ -23,3 +24,4 @@
   <p> You don't have an account? Register now!</p>
   <button mat-raised-button color="accent" type="button" (click)="redirectToRegister()">Register</button>
 </form>
+</div>

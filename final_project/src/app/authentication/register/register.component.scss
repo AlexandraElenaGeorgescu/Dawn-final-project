@@ -1,0 +1,69 @@
+.Register{
+
+    position: relative;
+    height: 100%;
+  
+    &__background-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('/assets/background.jpg');
+      background-size: cover;
+      z-index: -1;
+    }
+}
+  form {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  
+    h2 {
+      margin-bottom: 20px;
+      color: #3f51b5;
+      text-align: center;
+    }
+  
+    div {
+      margin-bottom: 15px;
+      
+      label {
+        color: #3f51b5;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+      }
+  
+      input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+      }
+    }
+  
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #673ab7;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #5622a4;
+      }
+  
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    }
+  }
+  

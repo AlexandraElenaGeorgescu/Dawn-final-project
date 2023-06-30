@@ -1,4 +1,5 @@
-<h2>Register</h2>
+<div class="Register">
+  <div class="Register__background-image"></div>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div>
     <label for="email">Email:</label>
@@ -39,3 +40,4 @@
   </div>
   <button mat-raised-button color="accent" type="submit" [disabled]="registerForm.invalid">Register</button>
 </form>
+</div>
