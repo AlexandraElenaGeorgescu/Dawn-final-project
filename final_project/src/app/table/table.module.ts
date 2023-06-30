@@ -20,6 +20,7 @@ import { TableRoutingModule } from './table-routing.module';
 import { IconDefinition } from '@ant-design/icons-angular';
 import {AccountBookFill, AlertOutline, AlertFill} from '@ant-design/icons-angular/icons';
 import { NameUppercasePipe } from '../pipes/name-uppercase.pipe';
+import { EntryDetailsModalComponent } from './components/entry-details-modal/entry-details-modal.component';
 
 const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill];
 
@@ -27,7 +28,8 @@ const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill];
   declarations: [
     TablePageComponent,
     PhoneComponent,
-    NameUppercasePipe
+    NameUppercasePipe,
+    EntryDetailsModalComponent
   ],
   imports: [
     CommonModule,

@@ -10,11 +10,10 @@ import { capitalLetterValidator } from 'src/app/validators/validator';
   styleUrls: ['./phone.component.scss']
 })
 export class PhoneComponent implements OnInit {
-  @Input()
-  phone!: Phone;
+  @Input() phone!: Phone;
   phoneForm!: FormGroup;
   newPhone?: Phone;
-  @Output() phoneUpdated = new EventEmitter<Phone>();
+
 
   constructor(private fb: FormBuilder, public modalRef: NzModalRef) {}
 
@@ -50,9 +49,13 @@ export class PhoneComponent implements OnInit {
       price: this.phoneForm.value.price,
       id: this.phoneForm.value.id
     };
-
-    this.phoneUpdated.emit(this.newPhone);
-
+    const updatedPhone: Phone = {
+      id: this.phone.id,
+      brand: this.phoneForm.value.brand,
+      model: this.phoneForm.value.model,
+      storage: this.phoneForm.value.storage,
+      price: this.phoneForm.value.price,
+    };
   }
 
 }

@@ -4,6 +4,7 @@ import { Phone } from 'src/models/phone';
 import { PhoneService } from 'src/app/services/phone.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { PhoneComponent } from '../phone/phone.component';
+import { EntryDetailsModalComponent } from '../entry-details-modal/entry-details-modal.component';
 
 @Component({
   selector: 'app-table-page',
@@ -126,8 +127,37 @@ export class TablePageComponent implements OnInit {
   }  
 
   sortPhones(column: string): void {
-    // Implement the sorting logic based on the selected column
-    // Update the phones array accordingly
+      // Implement the sorting logic based on the selected column
+      switch (column) {
+        case 'id':
+          this.phones.sort((a, b) => a.id - b.id);
+          break;
+        case 'brand':
+          this.phones.sort((a, b) => a.brand.localeCompare(b.brand));
+          break;
+        case 'model':
+          this.phones.sort((a, b) => a.model.localeCompare(b.model));
+          break;
+        case 'storage':
+          this.phones.sort((a, b) => a.storage - b.storage);
+          break;
+        case 'price':
+          this.phones.sort((a, b) => a.price - b.price);
+          break;
+        default:
+          break;
+      }
+    }
+    
+
+  openDetailsModal(phone: Phone): void {
+    const modalRef = this.modal.create({
+      nzTitle: 'Phone Details',
+      nzContent: EntryDetailsModalComponent,
+      nzComponentParams: {
+        phone: phone
+      }
+    });
   }
   
 }

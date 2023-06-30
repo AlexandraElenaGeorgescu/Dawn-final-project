@@ -1,9 +1,9 @@
 <input nz-input [(ngModel)]="searchQuery" placeholder="Search phones" />
-<button nz-button nzType="primary" nzSize="large" nzShape="round"  (click)="sortPhones('id')">ID</button>
-<button nz-button nzType="primary" nzSize="large" nzShape="round"  (click)="sortPhones('brand')">Brand</button>
-<button nz-button nzType="primary" nzSize="large" nzShape="round"  (click)="sortPhones('model')">Model</button>
-<button nz-button nzType="primary" nzSize="large" nzShape="round"  (click)="sortPhones('storage')">Storage (GB)</button>
-<button nz-button nzType="primary" nzSize="large" nzShape="round"  (click)="sortPhones('price')">Price ($)</button>
+<button nz-button nzType="primary" nzSize="large" (click)="sortPhones('id')">ID</button>
+<button nz-button nzType="primary" nzSize="large" (click)="sortPhones('brand')">Brand</button>
+<button nz-button nzType="primary" nzSize="large" (click)="sortPhones('model')">Model</button>
+<button nz-button nzType="primary" nzSize="large" (click)="sortPhones('storage')">Storage (GB)</button>
+<button nz-button nzType="primary" nzSize="large" (click)="sortPhones('price')">Price ($)</button>
 <div class="table-container">
 <ng-container *ngIf="phones$ | async as phones">
   <nz-table #table [nzData]="phones" nzBordered 
@@ -17,6 +17,8 @@
           <th>Storage (GB)</th>
           <th>Price ($)</th>
           <th>Edit</th>
+          <th>Details</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -31,6 +33,11 @@
           <td>{{ phone.price }}</td>
           <td>
             <button nz-button nzType="primary" nzShape="circle" nzIcon="edit" (click)="editPhone(phone)">Edit</button>
+          </td>
+          <td>
+            <button nz-button nzType="primary" nzShape="circle" nzIcon="info-circle" (click)="openDetailsModal(phone)">Details</button>
+          </td>
+          <td>
             <button nz-button nzType="primary" nzShape="circle" nzIcon="delete" (click)="deletePhone(phone.id)">Delete</button>
           </td>
         </tr>
