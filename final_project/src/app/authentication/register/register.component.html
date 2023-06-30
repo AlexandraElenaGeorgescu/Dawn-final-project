@@ -37,5 +37,5 @@
       <div *ngIf="registerForm.get('lastName')?.errors?.['required']">Last name is required.</div>
     </div>
   </div>
-  <button type="submit" [disabled]="registerForm.invalid">Register</button>
+  <button mat-raised-button color="accent" type="submit" [disabled]="registerForm.invalid">Register</button>
 </form>
