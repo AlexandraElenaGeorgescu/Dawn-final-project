@@ -148,7 +148,6 @@ export class TablePageComponent implements OnInit {
           break;
       }
     }
-    
 
   openDetailsModal(phone: Phone): void {
     const modalRef = this.modal.create({

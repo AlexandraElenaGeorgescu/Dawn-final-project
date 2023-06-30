@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -9,7 +9,7 @@ import { User } from 'src/models/user';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   loginForm: FormGroup;
   
   constructor(
@@ -22,6 +22,10 @@ export class LoginComponent {
       password: ['', Validators.required],
       rememberMe: [false]
     });
+  }
+
+  ngOnInit(): void {
+    this.checkToken();
   }
 
   onSubmit() {
@@ -38,24 +42,34 @@ export class LoginComponent {
     };
   
     this.authService.login(user).subscribe(
-      x=>{
+      x => {
         console.log(x);
         const token = x.token;
-         if (rememberMe) {
+        if (rememberMe) {
           localStorage.setItem('authToken', token);
-         } else {
-           sessionStorage.setItem('authToken', token);
-         }
-         this.router.navigate(['/PAGE']);
-        },
-       error => {
-         if (error.status === 401) {
-         console.log('Invalid email or password.');
-         } else {
-         console.log('An error occurred. Please try again later.');
+          localStorage.setItem('rememberMe', 'true');
+        } else {
+          sessionStorage.setItem('authToken', token);
+          localStorage.setItem('rememberMe', 'false');
+        }
+        this.router.navigate(['/PAGE']);
+      },
+      error => {
+        if (error.status === 401) {
+          console.log('Invalid email or password.');
+        } else {
+          console.log('An error occurred. Please try again later.');
         }
       }
     );
+  }
+
+  checkToken(): void {
+    const rememberMe = localStorage.getItem('rememberMe') === 'true';
+    const token = rememberMe ? localStorage.getItem('authToken') : sessionStorage.getItem('authToken');
+    if (rememberMe) {
+      this.router.navigate(['/PAGE']);
+    }
   }
   
 

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { User } from 'src/models/user';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { User } from 'src/models/user';
 export class AuthenticationService {
   private apiUrl = 'https://localhost:7214/Users';
  
-  constructor (private http: HttpClient ) { }
+  constructor (private http: HttpClient, private router: Router) { }
 
   readonly httpOptions = {
     headers: new HttpHeaders({
@@ -23,10 +24,11 @@ export class AuthenticationService {
 
 
   login(user: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`,  JSON.stringify(user), this.httpOptions);
+    return this.http.post(`${this.apiUrl}/login`, JSON.stringify(user), this.httpOptions)
   }
 
   register(user: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, JSON.stringify(user), this.httpOptions);
   }
+
 }
