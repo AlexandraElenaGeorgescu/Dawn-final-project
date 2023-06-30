@@ -1,25 +1,34 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component} from '@angular/core';
+import { AsyncValidatorFn, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { capitalLetterValidator } from 'src/app/validators/validator';
+import { User } from 'src/models/user';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent {
+export class RegisterComponent{
   registerForm: FormGroup;
-
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router,
   ) {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+        ]
+      ],
       confirmPassword: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required]
+      firstName: ['', Validators.required, capitalLetterValidator()],
+      lastName: ['', Validators.required, capitalLetterValidator()]
     }, { validators: this.passwordMatchValidator });
   }
 
@@ -28,27 +37,33 @@ export class RegisterComponent {
       return;
     }
 
-    const user = this.registerForm.value;
-    // Apelăm serviciul de înregistrare
-    this.authService.register(user).subscribe(
-      response => {
-        // Procesăm răspunsul API-ului
-        // Redirecționează utilizatorul către pagina de autentificare sau afișează un mesaj de succes
-      },
-      error => {
-        // Procesăm erorile
+    let user:User={
+      email:this.registerForm.value.email,
+      password:this.registerForm.value.password,
+      lastName:this.registerForm.value.lastName,
+      firstName:this.registerForm.value.firstName
       }
-    );
+      console.log(user)
+      this.authService.register(user).subscribe(
+        () => {
+          console.log('Registration successful');
+          this.router.navigateByUrl('/login');
+        },
+        (error) => {
+          console.log('Registration failed:', error);
+          // Handle registration failure, such as displaying an error message
+        }
+      );
   }
 
   passwordMatchValidator(formGroup: FormGroup) {
     const passwordControl = formGroup.get('password');
     const confirmPasswordControl = formGroup.get('confirmPassword');
-  
+
     if (passwordControl && confirmPasswordControl) {
       const password = passwordControl.value;
       const confirmPassword = confirmPasswordControl.value;
-  
+
       if (password !== confirmPassword) {
         confirmPasswordControl.setErrors({ passwordMismatch: true });
       } else {

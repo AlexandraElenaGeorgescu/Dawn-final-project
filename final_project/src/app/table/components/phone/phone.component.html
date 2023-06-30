@@ -1,0 +1,39 @@
+<form nz-form [formGroup]="phoneForm">
+
+<nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Id</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input type="number" min="0" formControlName="id" placeholder="Enter phone id">
+        </nz-form-control>
+</nz-form-item>
+
+<nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Brand</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="brand" placeholder="Enter phone brand">
+        <div *ngIf="phoneForm.get('brand')"></div>
+    </nz-form-control>
+</nz-form-item>
+
+<nz-form-item>
+  <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Model</nz-form-label>
+  <nz-form-control [nzSm]="14" [nzXs]="24">
+    <input nz-input formControlName="model" placeholder="Enter phone model">
+  </nz-form-control>
+</nz-form-item>
+
+<nz-form-item>
+  <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Storage (GB)</nz-form-label>
+  <nz-form-control [nzSm]="14" [nzXs]="24">
+    <input nz-input type="number" min="0" formControlName="storage" placeholder="Enter phone storage">
+  </nz-form-control>
+</nz-form-item>
+
+<nz-form-item>
+  <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Price (€)</nz-form-label>
+  <nz-form-control [nzSm]="14" [nzXs]="24">
+    <input nz-input type="number" min="0" formControlName="price" placeholder="Enter phone price">
+  </nz-form-control>
+</nz-form-item>
+</form>
+

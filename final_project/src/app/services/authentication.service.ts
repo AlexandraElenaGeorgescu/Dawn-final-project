@@ -1,21 +1,32 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from 'src/models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private apiUrl = 'https://reqres.in/'; // Schimbă această valoare cu URL-ul real al API-ului
+  private apiUrl = 'https://localhost:7214/Users';
+ 
+  constructor (private http: HttpClient ) { }
 
-  constructor(private http: HttpClient) { }
+  readonly httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+    })
+  }
 
-  login(email: string, password: string): Observable<any> {
-    const body = { email, password };
-    return this.http.post(`${this.apiUrl}/login`, body);
+  serviceCall() {
+    console.log("Service was called");
+  }
+
+
+  login(user: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`,  JSON.stringify(user), this.httpOptions);
   }
 
   register(user: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, user);
+    return this.http.post(`${this.apiUrl}/register`, JSON.stringify(user), this.httpOptions);
   }
 }
