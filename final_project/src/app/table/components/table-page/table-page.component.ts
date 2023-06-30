@@ -14,7 +14,7 @@ import { EntryDetailsModalComponent } from '../entry-details-modal/entry-details
 export class TablePageComponent implements OnInit {
   
   phones$!: Observable<Phone[]>;
-  @Output() editPhoneEvent = new EventEmitter<Phone>();
+  @Output() phones! : Phone[];
   searchQuery: string = '';
 
 
@@ -86,7 +86,6 @@ export class TablePageComponent implements OnInit {
   }
   currentPage: number = 1;
   pageSize: number = 8;
-  phones!: Phone[];
   
   getPhones(): void {
     this.phoneService.getPhones().subscribe((phones) => {
@@ -118,6 +117,7 @@ export class TablePageComponent implements OnInit {
     });
   
     return filteredPhones;
+
   }
 
   deletePhone(phoneId: number): void {
